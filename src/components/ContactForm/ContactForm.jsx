@@ -6,12 +6,11 @@ import { addContact } from '../redux/contactsSlice';
 
 const ContactForm = () => {
 
-    const contacts = useSelector(state => state.contacts.initialContacts);
+    // const contacts = useSelector(state => state.contacts.initialContacts);
     const dispatch = useDispatch();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.dir(values)
 
         const newContact = {
             id: nanoid(),
