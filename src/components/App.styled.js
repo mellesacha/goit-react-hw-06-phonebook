@@ -10,4 +10,4 @@ font-family: 'Roboto', sans-serif;
 text-align: center;
 margin-top: 20px;
 margin-bottom: 20px;
-`
+`;
