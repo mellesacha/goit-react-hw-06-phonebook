@@ -1,36 +1,27 @@
-import { useState } from "react";
 import PropTypes from 'prop-types';
 import { Form, Label, Input, Button } from "./ContactForm.styled";
 import { useSelector, useDispatch } from 'react-redux';
+import { nanoid } from 'nanoid';
+import { addContact } from '../redux/contactsSlice';
 
-const ContactForm = ({addContact}) => {
-    const [name, setName] = useState('');
-    const [number, setNumber] = useState('');
+const ContactForm = () => {
 
-    const handleInput = (e) => {
-        const { name, value } = e.target;
-        switch (name) {
-            case "name":
-                setName(value);
-                break;
-            
-            case "number":
-                setNumber(value);
-                break;
-            
-            default: return;
-        }
-            
-    };
+    const contacts = useSelector(state => state.contacts.initialContacts);
+    const dispatch = useDispatch();
 
     const handleSubmit = (e) => {
-        e.preventDefault()
-        
-        addContact({ name, number });
-        
-        setName('');
-        setNumber('');
-    };
+        e.preventDefault();
+        console.dir(values)
+
+        const newContact = {
+            id: nanoid(),
+            name: e.target[0].value,
+            number: e.target[1].value,
+        };
+
+        dispatch(addContact(newContact));
+    }
+
 
     return (
 
@@ -39,21 +30,21 @@ const ContactForm = ({addContact}) => {
                 <Input
                     type="text"
                     name="name"
-                    value={name}
+                    
                     pattern="^[a-zA-Zа-яА-ЯІіЇїҐґ' \-\u0400-\u04FF]+$"
                     title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
                     required
-                    onChange={handleInput}
+                    
                 /></Label>
             <Label>Number
                 <Input
                     type="tel"
                     name="number"
-                    value={number}
+                    
                     pattern="^[+]?[0-9\\.\\-\\s]{1,15}$"
                     title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
                     required
-                    onChange={handleInput}
+                   
                 />
             </Label>
             <Button type="submit">Add contact</Button>
