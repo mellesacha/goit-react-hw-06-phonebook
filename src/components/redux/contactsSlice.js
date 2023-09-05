@@ -16,13 +16,13 @@ const persistConfig = {
 
 export const contactsSlice = createSlice({
     name: 'contacts', 
-    initialState: {initialContacts},
+    initialState: initialContacts,
     reducers: {
         addContact(state, action) {
-            state.push(action.payload)
+            state.initialContacts.push(action.payload)
         },
         deleteContact(state, action) {
-            state.filter(contact => contact.id !== action.payload)
+            state.initialContacts = state.initialContacts.filter(contact => contact.id !== action.payload)
         }
     },
     prepare({id, name, number}) {

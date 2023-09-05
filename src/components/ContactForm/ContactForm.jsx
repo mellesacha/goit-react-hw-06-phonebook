@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import { Form, Label, Input, Button } from "./ContactForm.styled";
-import {  useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { nanoid } from 'nanoid';
 import { addContact } from '../redux/contactsSlice';
 
 const ContactForm = () => {
 
-    // const contacts = useSelector(state => state.contacts.initialContacts);
+    const contacts = useSelector(state => state.contacts.initialContacts);
     const dispatch = useDispatch();
 
     const handleSubmit = (e) => {
@@ -18,7 +18,13 @@ const ContactForm = () => {
             number: e.target[1].value,
         };
 
+        if (contacts.find(contact => contact.name === newContact.name)) {
+            return alert(`${newContact.name} is already in contacts`);
+          }
+
         dispatch(addContact(newContact));
+
+        e.target.reset();
     }
 
 
